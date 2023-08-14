@@ -1,0 +1,110 @@
+[
+	{
+		"title": "producto 1",
+		"description": "este es un productazo",
+		"price": 100,
+		"thumbnail": "Sin imagen",
+		"code": "kdf854",
+		"stock": 8,
+		"id": 0
+	},
+	{
+		"title": "producto 2",
+		"description": "este es un producto",
+		"price": 1500,
+		"thumbnail": "Sin imagen",
+		"code": "kjf9",
+		"stock": 8,
+		"id": 1
+	},
+	{
+		"title": "producto nuevo",
+		"description": "soy nuevo",
+		"price": 98,
+		"thumbnail": "Sin imagen",
+		"code": "lp89",
+		"stock": 8,
+		"id": 2
+	},
+	{
+		"title": "producto 1",
+		"description": "este es un productazo",
+		"price": 100,
+		"thumbnail": "Sin imagen",
+		"code": "kdf854",
+		"stock": 8,
+		"id": 0
+	},
+	{
+		"title": "producto 2",
+		"description": "este es un producto",
+		"price": 1500,
+		"thumbnail": "Sin imagen",
+		"code": "kjf9",
+		"stock": 8,
+		"id": 1
+	},
+	{
+		"title": "producto 3",
+		"description": "no sabemos que es",
+		"price": 10,
+		"thumbnail": "Sin imagen",
+		"code": "sdf54",
+		"stock": 8,
+		"id": 2
+	},
+	{
+		"title": "producto 1",
+		"description": "este es un productazo",
+		"price": 100,
+		"thumbnail": "Sin imagen",
+		"code": "kdf854",
+		"stock": 8,
+		"id": 0
+	},
+	{
+		"title": "producto 2",
+		"description": "este es un producto",
+		"price": 1500,
+		"thumbnail": "Sin imagen",
+		"code": "kjf9",
+		"stock": 8,
+		"id": 1
+	},
+	{
+		"title": "producto 3",
+		"description": "no sabemos que es",
+		"price": 10,
+		"thumbnail": "Sin imagen",
+		"code": "sdf54",
+		"stock": 8,
+		"id": 2
+	},
+	{
+		"title": "producto 1",
+		"description": "este es un productazo",
+		"price": 100,
+		"thumbnail": "Sin imagen",
+		"code": "kdf854",
+		"stock": 8,
+		"id": 0
+	},
+	{
+		"title": "producto 2",
+		"description": "este es un producto",
+		"price": 1500,
+		"thumbnail": "Sin imagen",
+		"code": "kjf9",
+		"stock": 8,
+		"id": 1
+	},
+	{
+		"title": "producto 3",
+		"description": "no sabemos que es",
+		"price": 10,
+		"thumbnail": "Sin imagen",
+		"code": "sdf54",
+		"stock": 8,
+		"id": 2
+	}
+]
