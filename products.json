@@ -1,110 +1,92 @@
 [
 	{
 		"title": "producto 1",
-		"description": "este es un productazo",
+		"description": "cubiertos",
 		"price": 100,
 		"thumbnail": "Sin imagen",
-		"code": "kdf854",
-		"stock": 8,
-		"id": 0
-	},
-	{
-		"title": "producto 2",
-		"description": "este es un producto",
-		"price": 1500,
-		"thumbnail": "Sin imagen",
-		"code": "kjf9",
+		"code": "abc123",
 		"stock": 8,
 		"id": 1
 	},
 	{
-		"title": "producto nuevo",
-		"description": "soy nuevo",
-		"price": 98,
+		"title": "producto 2",
+		"description": "vasos",
+		"price": 500,
 		"thumbnail": "Sin imagen",
-		"code": "lp89",
+		"code": "abc456",
 		"stock": 8,
 		"id": 2
-	},
-	{
-		"title": "producto 1",
-		"description": "este es un productazo",
-		"price": 100,
-		"thumbnail": "Sin imagen",
-		"code": "kdf854",
-		"stock": 8,
-		"id": 0
-	},
-	{
-		"title": "producto 2",
-		"description": "este es un producto",
-		"price": 1500,
-		"thumbnail": "Sin imagen",
-		"code": "kjf9",
-		"stock": 8,
-		"id": 1
 	},
 	{
 		"title": "producto 3",
-		"description": "no sabemos que es",
-		"price": 10,
+		"description": "platos",
+		"price": 120,
 		"thumbnail": "Sin imagen",
-		"code": "sdf54",
+		"code": "abc789",
 		"stock": 8,
-		"id": 2
+		"id": 3
 	},
 	{
-		"title": "producto 1",
-		"description": "este es un productazo",
-		"price": 100,
+		"title": "producto 4",
+		"description": "ollas",
+		"price": 1300,
 		"thumbnail": "Sin imagen",
-		"code": "kdf854",
+		"code": "def123",
 		"stock": 8,
-		"id": 0
+		"id": 4
 	},
 	{
-		"title": "producto 2",
-		"description": "este es un producto",
-		"price": 1500,
+		"title": "producto 5",
+		"description": "jarra",
+		"price": 200,
 		"thumbnail": "Sin imagen",
-		"code": "kjf9",
+		"code": "def456",
 		"stock": 8,
-		"id": 1
+		"id": 5
 	},
 	{
-		"title": "producto 3",
-		"description": "no sabemos que es",
-		"price": 10,
+		"title": "producto 6",
+		"description": "mantel",
+		"price": 50,
 		"thumbnail": "Sin imagen",
-		"code": "sdf54",
+		"code": "def789",
 		"stock": 8,
-		"id": 2
+		"id": 6
 	},
 	{
-		"title": "producto 1",
-		"description": "este es un productazo",
-		"price": 100,
+		"title": "producto 7",
+		"description": "cuchilla",
+		"price": 300,
 		"thumbnail": "Sin imagen",
-		"code": "kdf854",
+		"code": "ghi123",
 		"stock": 8,
-		"id": 0
+		"id": 7
 	},
 	{
-		"title": "producto 2",
-		"description": "este es un producto",
-		"price": 1500,
+		"title": "producto 8",
+		"description": "microondas",
+		"price": 3000,
 		"thumbnail": "Sin imagen",
-		"code": "kjf9",
+		"code": "ghi456",
 		"stock": 8,
-		"id": 1
+		"id": 8
 	},
 	{
-		"title": "producto 3",
-		"description": "no sabemos que es",
-		"price": 10,
+		"title": "producto 9",
+		"description": "cocina",
+		"price": 4000,
 		"thumbnail": "Sin imagen",
-		"code": "sdf54",
+		"code": "k854",
 		"stock": 8,
-		"id": 2
+		"id": 9
+	},
+	{
+		"title": "producto 10",
+		"description": "heladera",
+		"price": 7000,
+		"thumbnail": "Sin imagen",
+		"code": "ghi789",
+		"stock": 8,
+		"id": 10
 	}
 ]
