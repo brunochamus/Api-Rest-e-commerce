@@ -88,5 +88,14 @@
 		"code": "ghi789",
 		"stock": 8,
 		"id": 10
+	},
+	{
+		"title": "producto 11",
+		"description": "mesa",
+		"price": 100,
+		"thumbnail": "Sin imagen",
+		"code": "abc23",
+		"stock": 8,
+		"id": 11
 	}
 ]
