@@ -90,24 +90,12 @@
 		"id": 10
 	},
 	{
-		"title": "actualizado",
-		"description": "de los buenos",
-		"category": "es nuevo",
+		"title": "nuevo",
+		"category": "es muy nuevo",
 		"price": 7000,
 		"thumbnail": "Sin imagen",
 		"code": "799",
 		"stock": 8,
 		"id": 11
-	},
-	{
-		"title": "actualizado",
-		"description": "de los buenos",
-		"category": "es nuevo",
-		"price": 7000,
-		"thumbnail": "Sin imagen",
-		"code": "799",
-		"stock": 8,
-		"status": true,
-		"id": 12
 	}
 ]
