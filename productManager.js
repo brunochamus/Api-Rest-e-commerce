@@ -1,6 +1,6 @@
 import fs from "fs"
 
-class ProductManager {
+export default class ProductManager {
 
     constructor() {
         this.products = [];
@@ -12,14 +12,16 @@ class ProductManager {
         return data.length + 1;
     }
 
-    async addProduct(title, description, price, thumbnail, code, stock) {
+    async addProduct(title, description, category, price, thumbnail, code, stock, status) {
         const newProduct = {
             title,
             description,
+            category,
             price,
             thumbnail,
             code,
             stock,
+            status,
         };
 
         try {
@@ -46,7 +48,7 @@ class ProductManager {
     async deleteProducts(id) {
         const product = await this.getProducts()
         const productNoId = product.filter((producto) => producto.id !== id)
-        await writeFile(this.path, JSON.stringify(productNoId, null, '\t'));
+        await fs.promises.writeFile(this.path, JSON.stringify(productNoId, null, '\t'));
     }
 
 
@@ -66,12 +68,12 @@ class ProductManager {
         let i = data.findIndex(e => e.id === id)
         product.id = id
         data.splice(i, 1, product)
-        await writeFile(this.path, JSON.stringify(data))
+        await fs.promises.writeFile(this.path, JSON.stringify(data))
 
     }
 }
 
-
+/*
 const funcionAsincrona = async () => {
     const productManager = new ProductManager()
     await productManager.addProduct("producto 11", "mesa", 100, "Sin imagen", "abc23", 8);
@@ -80,5 +82,5 @@ const funcionAsincrona = async () => {
 
 
 funcionAsincrona();
+*/
 
-export { ProductManager };
