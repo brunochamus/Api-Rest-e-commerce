@@ -11,4 +11,4 @@ app.use('/api', productRouter);
 
 app.use('/api', cartRouter);
 
-app.listen(8080, () => console.log('servidor iniciado en puerto 8080'))
+app.listen(8080, () => console.log('Server is running on port 8080'))
