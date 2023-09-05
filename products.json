@@ -72,30 +72,42 @@
 		"id": 8
 	},
 	{
-		"title": "producto 9",
-		"description": "cocina",
-		"price": 4000,
-		"thumbnail": "Sin imagen",
-		"code": "k854",
-		"stock": 8,
+		"title": {
+			"title": "productazo",
+			"description": "muy bueno",
+			"category": "hola",
+			"price": "61",
+			"thumbnail": "noimage",
+			"code": "mnb123",
+			"stock": "1",
+			"status": "true"
+		},
 		"id": 9
 	},
 	{
-		"title": "producto 10",
-		"description": "heladera",
-		"price": 7000,
-		"thumbnail": "Sin imagen",
-		"code": "ghi789",
-		"stock": 8,
+		"title": {
+			"title": "producto prueba",
+			"description": "esto es prueba",
+			"category": "hola",
+			"price": "40",
+			"thumbnail": "noimage",
+			"code": "mnb124",
+			"stock": "8",
+			"status": "true"
+		},
 		"id": 10
 	},
 	{
-		"title": "nuevo",
-		"category": "es muy nuevo",
-		"price": 7000,
-		"thumbnail": "Sin imagen",
-		"code": "799",
-		"stock": 8,
+		"title": {
+			"title": "kkkkk",
+			"description": "ghghh",
+			"category": "hola",
+			"price": "41",
+			"thumbnail": "noimage",
+			"code": "4145",
+			"stock": "1414",
+			"status": "true"
+		},
 		"id": 11
 	}
 ]

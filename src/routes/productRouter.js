@@ -35,6 +35,7 @@ router.post('/products/', async (req, res) => {
     }else{
         res.status(400).send();
     }
+
 })
 
 router.put('/products/:pid', async (req, res)=> {
