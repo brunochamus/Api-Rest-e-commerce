@@ -1,12 +1,12 @@
 import { Router } from "express";
-import CartManager from "../cartManager.js";
-import ProductManager from "../../productManager.js";
+import CartManager from "../dao/database/cartManager.js";
+import ProductManager from "../dao/database/productManager.js";
 
 const cartManager = new CartManager('./src/cart.json');
 const productManager = new ProductManager("../../products.json")
 const router = Router();
 
-router.get('/test/', (req, res)=>{
+router.get('/test/', (req, res) => {
     res.send('test')
 })
 
@@ -36,7 +36,7 @@ router.get('/cart', async (req, res) => {
 // Listado de productos según carrito
 router.get('/cart/:cid', async (req, res) => {
     try {
-        const cartId = parseInt(req.params.cid, 10);
+        const cartId = req.params.cid;
         const products = await cartManager.getProductInCart(cartId);
         res.json(products);
     } catch (error) {
@@ -47,8 +47,8 @@ router.get('/cart/:cid', async (req, res) => {
 //Agregar pid a cart segun su cid
 router.post('/cart/:cid/product/:pid', async (req, res) => {
     try {
-        const cid = parseInt(req.params.cid, 10);
-        const pid = parseInt(req.params.pid, 10);
+        const cid = req.params.cid;
+        const pid = req.params.pid;
         const quantity = req.body.quantity || 1;
 
         if (quantity <= 0) {

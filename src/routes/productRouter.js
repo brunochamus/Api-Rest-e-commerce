@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import ProductManager from "../../productManager.js";
+import ProductManager from "../dao/database/productManager.js";
 
 const pm = new ProductManager();
 
@@ -16,7 +16,7 @@ router.get('/products/', async (req, res) => {
 })
 
 router.get('/products/:pid', async (req, res) => {
-    const pid = parseInt(req.params.pid, 10);
+    const pid = req.params.pid;
     const prod = await pm.getProductsById(pid);
 
     if (prod) {
@@ -27,19 +27,22 @@ router.get('/products/:pid', async (req, res) => {
 })
 
 router.post('/products/', async (req, res) => {
-    const { title, description, category, price, thumbnail, code, stock, status } = req.body;
-    res.send(await pm.addProduct(title, category, description, price, thumbnail, code, stock, status));
+    const { title, description, category, price, thumbnail, code, stock } = req.body;
 
-    if (pm){
-        res.send(pm);
-    }else{
-        res.status(400).send();
+    if (pm) {
+        try {
+            const newProduct = await pm.addProduct(title, description, category, price, thumbnail, code, stock);
+            res.send(newProduct);
+        } catch (error) {
+            res.status(500).send("Error adding product");
+        }
+    } else {
+        res.status(400).send("Incomplete or no product manager");
     }
-
-})
+});
 
 router.put('/products/:pid', async (req, res)=> {
-    const pid = parseInt(req.params.pid, 10);
+    const pid = req.params.pid;
     const update = req.body;
 
     await pm.updateProducts(pid, update);
@@ -48,7 +51,7 @@ router.put('/products/:pid', async (req, res)=> {
 })
 
 router.delete('/products/:pid', async (req, res) => {
-    const pid = parseInt(req.params.pid, 10);
+    const pid = req.params.pid;
     await pm.deleteProducts(pid);
     res.send('Delete Product')
 })

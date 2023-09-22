@@ -4,7 +4,11 @@ import cartRouter from './routes/cartRouter.js';
 import viewRouter from './routes/viewRouter.js'
 import handlebars from 'express-handlebars';
 import { Server } from "socket.io";
-import ProductManager from "../productManager.js";
+import ProductManager from "./dao/filesystem/productManager.js";
+import mongoose from "mongoose";
+import { mensajeModel } from "./dao/models/mensaje.model.js";
+
+mongoose.connect('mongodb+srv://brunochamus:KOXT3iErEmAleZtF@cluster0.aycmosa.mongodb.net/?retryWrites=true&w=majority')
 
 const app = express();
 app.engine('handlebars', handlebars.engine());
@@ -37,5 +41,15 @@ socketServer.on("connection", async (socket)=> {
         await pmanagersocket.addProduct(obj)
         const updateProducts = await pmanagersocket.getProducts()
         socket.emit("sendproducts", updateProducts)
+    })
+})
+
+socketServer.on("connection", (socket) => {
+    console.log("client connected to chat with id", socket.id);
+    socket.on('mensaje', async (data) => {
+        await mensajeModel.create(data);
+        const mensajes = await mensajeModel.find().lean();
+        console.log(mensajes)
+        socketServer.emit('nuevo_mensaje', mensajes)
     })
 })
