@@ -53,4 +53,20 @@ export default class ProductManager {
             console.log("Error updating product",error)
         }
     }
+
+    async pageProducts(pageId){
+        try{
+        let result = await productsModel.paginate(
+            {},
+            {
+                page: pageId,
+                limit: 5,
+                lean: true,
+            }
+        );
+        return result;
+        }catch(error){
+            console.log(error,"Pagination error")
+        }
+    } 
 }

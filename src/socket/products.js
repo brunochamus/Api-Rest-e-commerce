@@ -1,5 +1,5 @@
 import ProductManager from "../dao/database/productManager.js";
-const pmanagersocket = new ProductManager('../products.json')
+const pmanagersocket = new ProductManager()
 
 const productEvents = (socketServer) => {
     socketServer.on("connection", async (socket) => {
