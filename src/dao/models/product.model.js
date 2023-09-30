@@ -31,7 +31,8 @@ const productsSchema = new mongoose.Schema({
     stock: {
         type: Number,
         required : true
-    }
+    },
+    id: String,
 })
 
 productsSchema.plugin(mongoosePaginate);

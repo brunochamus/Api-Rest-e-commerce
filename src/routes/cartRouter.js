@@ -2,8 +2,8 @@ import { Router } from "express";
 import CartManager from "../dao/database/cartManager.js";
 import ProductManager from "../dao/database/productManager.js";
 
-const cartManager = new CartManager('./src/cart.json');
-const productManager = new ProductManager("../../products.json")
+const cartManager = new CartManager();
+const productManager = new ProductManager()
 const router = Router();
 
 router.get('/test/', (req, res) => {
@@ -44,7 +44,7 @@ router.get('/cart/:cid', async (req, res) => {
     }
 });
 
-//Agregar pid a cart segun su cid
+//Agregar productos al carrito
 router.post('/cart/:cid/product/:pid', async (req, res) => {
     try {
         const cid = req.params.cid;
@@ -72,6 +72,85 @@ router.post('/cart/:cid/product/:pid', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+//Eliminar producto de carrito
+router.delete('/cart/:cid/product/:pid', async (req,res)=> {
+
+    try {
+        const cid = req.params.cid;
+        const pid = req.params.pid;
+    
+        await cartManager.deleteProductOfCart(cid, pid);
+
+        res.json({ message: 'Product removed from the cart' });
+    } catch (error) {
+        console.error('Error deleting product from the cart:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+//Vaciar carrito
+router.delete('/cart/:cid', async (req,res)=> {
+    try{
+    const cid = req.params.cid;
+
+    await cartManager.emptyCart(cid); 
+    res.send('Updated successfully');
+    
+    }catch(error){
+        console.error('Error when deleting cart', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
+})
+
+
+//Actualizar array de productos de carrito
+router.put('/cart/:cid', async (req, res)=> {
+    try{
+        const cid = req.params.cid;
+        const updateData = req.body;
+
+        await cartManager.updateCart(cid, updateData);
+        res.send('Updated successfully')
+
+    }catch(error){
+        console.error('Error updating cart', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+/*
+{
+"products" :[{
+    "_id":"650b7c649e00d1c4dab5fae2",
+    "quantity": 10
+}]
+}
+*/
+
+//Actualizar quantity de producto
+router.put('/cart/:cid/products/:pid', async (req, res) => {
+    const cid = req.params.cid;
+    const pid = req.params.pid;
+    const quantity = req.body.quantity;
+
+    const cart = await cartManager.getCartById(cid);
+
+    if (!cart) {
+        return res.status(404).json({ error: 'Cart not found' });
+    }
+
+    const product = await productManager.getProductsById(pid);
+    if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+    }console.log();
+
+    await cartManager.updateProductQuantity(cid, pid, quantity);
+    console.log(quantity);
+    res.json({ message: 'Product quantity modified', productId: pid, cartId: cid });
+});
+
 
 
 export default router;

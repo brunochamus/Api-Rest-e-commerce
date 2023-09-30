@@ -4,16 +4,25 @@ import ProductManager from "../dao/database/productManager.js";
 
 const pm = new ProductManager();
 
-router.get('/products/', async (req, res) => {
-    const products = await pm.getProducts();
-    const limit = req.query.limit;
 
-    if (limit) {
-        return res.send(products.slice(0, limit))
-    } else {
-        res.send(products)
-    }
+router.get('/products/', async (req, res) => {
+    const { limit, page, sort, query } = req.query;
+
+    const sortObject = {
+        asc: { price: 1 },
+        desc: { price: -1 },
+    };
+
+    const modelQuery = query ? JSON.parse(query) : {};
+    const modelLimit = limit ? parseInt(limit, 10) : 10;
+    const modelPage = page ? parseInt(page, 10) : 1;
+    const modelSort = sortObject[sort] ?? undefined;
+
+    const product = await pm.pageProducts(modelQuery, modelLimit, modelPage, modelSort);
+    res.send(product)
 })
+
+
 
 router.get('/products/:pid', async (req, res) => {
     const pid = req.params.pid;
@@ -41,13 +50,13 @@ router.post('/products/', async (req, res) => {
     }
 });
 
-router.put('/products/:pid', async (req, res)=> {
+router.put('/products/:pid', async (req, res) => {
     const pid = req.params.pid;
     const update = req.body;
 
     await pm.updateProducts(pid, update);
 
-    res.send('Actualizado correctamente')
+    res.send('Updated successfully')
 })
 
 router.delete('/products/:pid', async (req, res) => {

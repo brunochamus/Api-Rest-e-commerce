@@ -18,7 +18,6 @@ app.use(express.static('./src/public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.Router());
-app.use(express.static('./public'));
 
 app.use('/api', productRouter);
 app.use('/api', cartRouter);

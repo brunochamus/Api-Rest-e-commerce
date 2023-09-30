@@ -10,12 +10,6 @@ router.get('/', async (req, res) => {
     res.render('home', {products});
 });
 
-router.get('/:pageId', async (req,res)=> {
-    const pageId = req.params.pageId;
-    const products = await pm.pageProducts(pageId);
-    res.render('home', {products});
-})
-
 router.get('/realtimeproducts', (req, res)=> {
     res.render('realtimeproducts')
 })
@@ -23,5 +17,9 @@ router.get('/realtimeproducts', (req, res)=> {
 router.get('/chat', (req, res)=> {
     res.render('chat', {})
 });
+
+router.get('/products', (req,res)=> {
+    res.render('products', {products})
+})
 
 export default router;
