@@ -9,6 +9,8 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import userRouter from './routes/userRouter.js'
 import initEvents from "./socket/index.js";
+import initializePassport from "./config/passport.congif.js";
+import passport from "passport";
 
 mongoose.connect('mongodb+srv://brunochamus:KOXT3iErEmAleZtF@cluster0.aycmosa.mongodb.net/?retryWrites=true&w=majority')
 
@@ -32,6 +34,9 @@ app.use(session({
     saveUninitialized: false,
 }));
 
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api', productRouter);
 app.use('/api', cartRouter);
