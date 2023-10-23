@@ -56,7 +56,7 @@ const initializePassport = () => {
         clientID: 'Iv1.eb5297c010bf23c3',
         clientSecret: 'fbece7fe3dc9070930b0fd9ae4278fb4407c62fd',
         callbackURL: 'http://localhost:8080/api/githubcallback',
-        scope: ['user: email'],
+        scope:['user:email'],
     }, async (accessToken, refreshToken, profile, done) => {
         try{
             const email = profile.emails[0].value;
