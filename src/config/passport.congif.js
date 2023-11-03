@@ -3,6 +3,7 @@ import LocalStrategy from 'passport-local';
 import GitHubStrategy from 'passport-github2'
 import bcrypt from 'bcrypt';
 import userModel from "../dao/models/user.model.js";
+import config from "./config.js";
 
 //initializePassport configura todas las estrategias de configuracion que passport tendra
 const initializePassport = () => {
@@ -51,11 +52,15 @@ const initializePassport = () => {
         }
     }));
 
+    const clientID = config.github_client_id;
+    const clientSecret = config.github_client_secret;
+    const callbackURL = config.github_callback_url;
+
     //Ingreso con GitHub
     passport.use('github', new GitHubStrategy({
-        clientID: 'Iv1.eb5297c010bf23c3',
-        clientSecret: 'fbece7fe3dc9070930b0fd9ae4278fb4407c62fd',
-        callbackURL: 'http://localhost:8080/api/githubcallback',
+        clientID: clientID,
+        clientSecret: clientSecret,
+        callbackURL: callbackURL,
         scope:['user:email'],
     }, async (accessToken, refreshToken, profile, done) => {
         try{

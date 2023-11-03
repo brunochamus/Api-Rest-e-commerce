@@ -11,8 +11,13 @@ import userRouter from './routes/userRouter.js'
 import initEvents from "./socket/index.js";
 import initializePassport from "./config/passport.congif.js";
 import passport from "passport";
+import config from "./config/config.js";
 
-mongoose.connect('mongodb+srv://brunochamus:KOXT3iErEmAleZtF@cluster0.aycmosa.mongodb.net/?retryWrites=true&w=majority')
+const port = config.port;
+const mongo_url = config.mongo_url;
+const session_secret = config.session_secret;
+
+mongoose.connect(mongo_url);
 
 const app = express();
 app.engine('handlebars', handlebars.engine());
@@ -26,10 +31,10 @@ app.use(express.Router());
 
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://brunochamus:KOXT3iErEmAleZtF@cluster0.aycmosa.mongodb.net/?retryWrites=true&w=majority',
+        mongoUrl: mongo_url,
         ttl: 100,
     }),
-    secret: 'C0d3erS3cr37',
+    secret: session_secret,
     resave: false,
     saveUninitialized: false,
 }));
@@ -44,8 +49,7 @@ app.use('/', viewRouter);
 app.use('/api', userRouter);
 
 
-const httpServer = app.listen(8080, () => console.log('Server is running on port 8080'));
+const httpServer = app.listen(port, () => console.log('Server is running on port 8080'));
 const socketServer = new Server(httpServer);
 
 initEvents(socketServer);
-

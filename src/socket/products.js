@@ -1,4 +1,4 @@
-import ProductManager from "../dao/database/productManager.js";
+import ProductManager from "../dao/controller/productManager.js";
 const pmanagersocket = new ProductManager()
 
 const productEvents = (socketServer) => {
