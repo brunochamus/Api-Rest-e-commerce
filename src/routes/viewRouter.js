@@ -1,17 +1,17 @@
 import { Router } from "express";
-import ProductManager from "../dao/controller/productManager.js";
-import CartManager from "../dao/controller/cartManager.js";
+import productsService from "../services/productsService.js";
+import CartService from "../services/cartService.js";
 import publicRoutes from "../middlewares/publicRoutes.js";
 import privateRoutes from "../middlewares/privateRoutes.js"
 
 
 const router = Router();
-const pm = new ProductManager();
+const productService = new productsService();
 
-const cartManager = new CartManager();
+const cartService = new CartService();
 
 router.get('/', async (req, res) => {
-    const products = await pm.getProducts();
+    const products = await productService.getProductsService();
     res.render('home', {products});
 });
 
@@ -24,14 +24,14 @@ router.get('/chat', (req, res)=> {
 });
 
 router.get('/products', privateRoutes, async (req,res)=> {
-    const products = await pm.getProducts();
+    const products = await productService.getProductsService();
     const { first_name } = req.session;
     res.render('products', { first_name, products})
 
 });
 
 router.get('/cart', async (req,res)=> {
-    const cart = await cartManager.getAllCarts();
+    const cart = await cartService.getAllCartsService();
     res.render('cart', {cart})
 });
 

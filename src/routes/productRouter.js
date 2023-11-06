@@ -1,8 +1,8 @@
 import { Router } from "express";
 const router = Router();
-import ProductManager from "../dao/controller/productManager.js";
+import productsService from "../services/productsService.js";
 
-const pm = new ProductManager();
+const productService = new productsService();
 
 
 router.get('/products/', async (req, res) => {
@@ -18,7 +18,7 @@ router.get('/products/', async (req, res) => {
     const modelPage = page ? parseInt(page, 10) : 1;
     const modelSort = sortObject[sort] ?? undefined;
 
-    const product = await pm.pageProducts(modelQuery, modelLimit, modelPage, modelSort);
+    const product = await productService.pageProductsService(modelQuery, modelLimit, modelPage, modelSort);
     res.send(product)
 })
 
@@ -26,7 +26,7 @@ router.get('/products/', async (req, res) => {
 
 router.get('/products/:pid', async (req, res) => {
     const pid = req.params.pid;
-    const prod = await pm.getProductsById(pid);
+    const prod = await productService.getProductsByIdService(pid);
 
     if (prod) {
         res.send(prod)
@@ -38,9 +38,9 @@ router.get('/products/:pid', async (req, res) => {
 router.post('/products/', async (req, res) => {
     const { title, description, category, price, thumbnail, code, stock } = req.body;
 
-    if (pm) {
+    if (productService) {
         try {
-            const newProduct = await pm.addProduct(title, description, category, price, thumbnail, code, stock);
+            const newProduct = await productService.addProductSevice(title, description, category, price, thumbnail, code, stock);
             res.send(newProduct);
         } catch (error) {
             res.status(500).send("Error adding product");
@@ -54,14 +54,14 @@ router.put('/products/:pid', async (req, res) => {
     const pid = req.params.pid;
     const update = req.body;
 
-    await pm.updateProducts(pid, update);
+    await productService.updateProductsService(pid, update);
 
     res.send('Updated successfully')
 })
 
 router.delete('/products/:pid', async (req, res) => {
     const pid = req.params.pid;
-    await pm.deleteProducts(pid);
+    await productService.deleteProductsService(pid);
     res.send('Delete Product')
 })
 
