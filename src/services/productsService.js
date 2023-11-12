@@ -1,7 +1,7 @@
 import productsModel from '../dao/models/product.model.js'
 
 export default class productsService {
-    async addProductSevice(title, description, category, price, thumbnail, code, stock) {
+    async addProductService(title, description, category, price, thumbnail, code, stock) {
         const newProduct = {
             title,
             description,

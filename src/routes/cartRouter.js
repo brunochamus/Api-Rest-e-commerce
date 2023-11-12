@@ -1,9 +1,9 @@
 import { Router } from "express";
-import CartService from "../services/cartService.js";
-import productsService from "../services/productsService.js";
+import CartController from "../dao/controller/cartController.js";
+import ProductController from "../dao/controller/productController.js"
 
-const cartService = new CartService();
-const productService = new productsService()
+const cartController = new CartController();
+const productController = new ProductController()
 const router = Router();
 
 router.get('/test/', (req, res) => {
@@ -14,7 +14,7 @@ router.get('/test/', (req, res) => {
 router.post('/cart/', async (req, res) => {
     try {
         const cart = { products: [] };
-        const cartId = await cartService.addCartService(cart);
+        const cartId = await cartController.addCartController(cart);
         res.status(201).json({ message: 'Cart created successfully', cartId });
     } catch (error) {
         console.error('Error creating cart', error);
@@ -25,7 +25,7 @@ router.post('/cart/', async (req, res) => {
 //Todos los carritos
 router.get('/cart', async (req, res) => {
     try {
-        const allCarts = await cartService.getAllCartsService();
+        const allCarts = await cartController.getAllCartsController();
         res.json(allCarts);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -37,7 +37,7 @@ router.get('/cart', async (req, res) => {
 router.get('/cart/:cid', async (req, res) => {
     try {
         const cartId = req.params.cid;
-        const products = await cartService.getProductInCartService(cartId);
+        const products = await cartController.getProductInCartController(cartId);
         res.json(products);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -55,16 +55,16 @@ router.post('/cart/:cid/product/:pid', async (req, res) => {
             return res.status(400).json({ error: 'Quantity must be greater than 0' });
         }
 
-        const cart = await cartService.getCartByIdService(cid);
+        const cart = await cartController.getCartByIdController(cid);
         if (!cart) {
             return res.status(404).json({ error: 'Cart not found' });
         }
-        const product = await productService.getProductsByIdService(pid);
+        const product = await productController.getProductsByIdController(pid);
         if (!product) {
             return res.status(404).json({ error: 'Product not found' });
         }
 
-        await cartService.addProductToCartService(cid, pid, quantity);
+        await cartController.addProductToCartController(cid, pid, quantity);
         res.json({ message: 'Product added to cart successfully' });
 
     } catch (error) {
@@ -80,7 +80,7 @@ router.delete('/cart/:cid/product/:pid', async (req,res)=> {
         const cid = req.params.cid;
         const pid = req.params.pid;
     
-        await cartService.deleteProductOfCartService(cid, pid);
+        await cartController.deleteProductOfCartController(cid, pid);
 
         res.json({ message: 'Product removed from the cart' });
     } catch (error) {
@@ -94,7 +94,7 @@ router.delete('/cart/:cid', async (req,res)=> {
     try{
     const cid = req.params.cid;
 
-    await cartService.emptyCartService(cid); 
+    await cartController.emptyCartController(cid); 
     res.send('Updated successfully');
     
     }catch(error){
@@ -111,7 +111,7 @@ router.put('/cart/:cid', async (req, res)=> {
         const cid = req.params.cid;
         const updateData = req.body;
 
-        await cartService.updateCartService(cid, updateData);
+        await cartController.updateCartController(cid, updateData);
         res.send('Updated successfully')
 
     }catch(error){
@@ -120,14 +120,6 @@ router.put('/cart/:cid', async (req, res)=> {
     }
 });
 
-/*
-{
-"products" :[{
-    "_id":"650b7c649e00d1c4dab5fae2",
-    "quantity": 10
-}]
-}
-*/
 
 //Actualizar quantity de producto
 router.put('/cart/:cid/products/:pid', async (req, res) => {
@@ -135,18 +127,18 @@ router.put('/cart/:cid/products/:pid', async (req, res) => {
     const pid = req.params.pid;
     const quantity = req.body.quantity;
 
-    const cart = await cartService.getCartByIdService(cid);
+    const cart = await cartController.getCartByIdController(cid);
 
     if (!cart) {
         return res.status(404).json({ error: 'Cart not found' });
     }
 
-    const product = await productService.getProductsByIdService(pid);
+    const product = await productController.getProductsByIdController(pid);
     if (!product) {
         return res.status(404).json({ error: 'Product not found' });
     }console.log();
 
-    await cartService.updateProductQuantityService(cid, pid, quantity);
+    await cartController.updateProductQuantityController(cid, pid, quantity);
     console.log(quantity);
     res.json({ message: 'Product quantity modified', productId: pid, cartId: cid });
 });
