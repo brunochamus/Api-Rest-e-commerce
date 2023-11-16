@@ -1,68 +1,15 @@
 import { Router } from "express";
+import {addProductController, deleteProductsController, getProductsByIdController, pageProductsController, updateProductsController} from "../dao/controller/productController.js"
 const router = Router();
-import ProductController from "../dao/controller/productController.js";
 
-const productController = new ProductController();
+router.get('/products/', pageProductsController);
 
+router.get('/products/:pid', getProductsByIdController);
 
-router.get('/products/', async (req, res) => {
-    const { limit, page, sort, query } = req.query;
+router.post('/products/', addProductController);
 
-    const sortObject = {
-        asc: { price: 1 },
-        desc: { price: -1 },
-    };
+router.put('/products/:pid', updateProductsController);
 
-    const modelQuery = query ? JSON.parse(query) : {};
-    const modelLimit = limit ? parseInt(limit, 10) : 10;
-    const modelPage = page ? parseInt(page, 10) : 1;
-    const modelSort = sortObject[sort] ?? undefined;
-
-    const product = await productController.pageProductsController(modelQuery, modelLimit, modelPage, modelSort);
-    res.send(product)
-})
-
-
-
-router.get('/products/:pid', async (req, res) => {
-    const pid = req.params.pid;
-    const prod = await productController.getProductsByIdController(pid);
-
-    if (prod) {
-        res.send(prod)
-    } else {
-        res.status(404).send();
-    }
-})
-
-router.post('/products/', async (req, res) => {
-    const { title, description, category, price, thumbnail, code, stock } = req.body;
-
-    if (productController) {
-        try {
-            const newProduct = await productController.addProductController(title, description, category, price, thumbnail, code, stock);
-            res.send(newProduct);
-        } catch (error) {
-            res.status(500).send("Error adding product");
-        }
-    } else {
-        res.status(400).send("Incomplete or no product manager");
-    }
-});
-
-router.put('/products/:pid', async (req, res) => {
-    const pid = req.params.pid;
-    const update = req.body;
-
-    await productController.updateProductsController(pid, update);
-
-    res.send('Updated successfully')
-})
-
-router.delete('/products/:pid', async (req, res) => {
-    const pid = req.params.pid;
-    await productController.deleteProductsController(pid);
-    res.send('Delete Product')
-})
+router.delete('/products/:pid', deleteProductsController);
 
 export default router;

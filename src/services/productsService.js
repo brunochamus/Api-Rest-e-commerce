@@ -1,4 +1,6 @@
-import productsModel from '../dao/models/product.model.js'
+import ProductRepository from '../repository/productRepository.js';
+
+const productRepository = new ProductRepository();
 
 export default class productsService {
     async addProductService(title, description, category, price, thumbnail, code, stock) {
@@ -12,13 +14,13 @@ export default class productsService {
             stock,
         };
 
-        const repeatCode = await productsModel.find({ code: code });
+        const repeatCode = await productRepository.getRepository({code:code});
         if (repeatCode.length > 0) {
             console.log("Repeat code")
             return;
         }
         try {
-            const productCreate = await productsModel.create(newProduct);
+            const productCreate = await productRepository.postRepository(newProduct);
             return productCreate;
         } catch (error) {
             console.log("Error when adding product", error)
@@ -26,18 +28,22 @@ export default class productsService {
     }
 
     async getProductsService() {
-        const data = await productsModel.find().lean();
+        const data = await productRepository.getRepository();
         return data;
     }
 
-    async getProductsByIdService(id) {
-        const data = await productsModel.find({ _id: id }).lean();
+    async getProductsByIdService(pid) {
+        try{
+        const data = await productRepository.getRepository({_id : pid})
         return data;
+        }catch(error){
+        console.error("Error id:", error);
+        }
     }
     
     async deleteProductsService(pid) {
         try {
-            const data = await productsModel.deleteOne({ _id: pid });
+            const data = await productRepository.deleteRepository({ _id: pid });
             return data;
         } catch (error) {
             console.log("Error when deleting product", error)
@@ -46,7 +52,7 @@ export default class productsService {
 
     async updateProductsService(pid, updateData) {
         try {
-            const data = await productsModel.updateOne({ _id: pid }, updateData);
+            const data = await productRepository.updateRepository({ _id: pid }, updateData);
             return data;
         } catch (error) {
             console.log("Error updating product", error)
@@ -55,32 +61,11 @@ export default class productsService {
 
     async pageProductsService(modelQuery, modelLimit, modelPage, modelSort) {
         try {
-            const products = await productsModel.paginate(modelQuery,
-                {
-                    limit: modelLimit,
-                    page: modelPage,
-                    sort: modelSort,
-                    lean: true,
-                }
-            );
-    
-            const response = {
-                status: 'success',
-                payload: products.docs,
-                totalDocs: products.totalDocs,
-                limit: products.limit,
-                totalPages: products.totalPages,
-                page: products.page,
-                pagingCounter: products.pagingCounter,
-                hasPrevPage: products.hasPrevPage,
-                hasNextPage: products.hasNextPage,
-                prevPage: products.prevPage,
-                nextPage: products.nextPage,
-            };
-            return response;
+            const page = await productRepository.pageRepository(modelQuery, modelLimit, modelPage, modelSort);
+            return page;
 
         } catch (error) {
-            console.error("Error en la función pageProducts:", error);
+            console.error("error in pageProducts function:", error);
             throw error;
         }
     }

@@ -1,16 +1,16 @@
-import ProductController from "../dao/controller/productController.js";
-const pcontrollersocket = new ProductController()
+import ProductRepository from "../repository/productRepository.js";
+const prodRepositorySocket = new ProductRepository()
 
 const productEvents = (socketServer) => {
     socketServer.on("connection", async (socket) => {
         console.log('client connected with id', socket.id);
 
-        const listadeproductos = await pcontrollersocket.getProducts()
+        const listadeproductos = await prodRepositorySocket.getRepository()
         socket.emit("sendproducts", listadeproductos)
 
         socket.on("addProduct", async (obj) => {
-            await pmanagersocket.addProduct(obj)
-            const updateProducts = await pcontrollersocket.getProducts()
+            await prodRepositorySocket.addProduct(obj)
+            const updateProducts = await prodRepositorySocket.getRepository()
             socket.emit("sendproducts", updateProducts)
         });
     });
