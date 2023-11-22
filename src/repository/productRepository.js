@@ -1,4 +1,5 @@
 import productsModel from "../dao/models/product.model.js";
+import { fakerES as faker, ka_GE} from '@faker-js/faker'
 
 export default class ProductRepository {
     async getRepository(pid, code) {
@@ -67,7 +68,26 @@ export default class ProductRepository {
             return response;
 
         } catch (error) {
-            console.error("Error en la función pageProducts:", error);
+            console.error("Error pageProducts:", error);
+            throw error;
+        }
+    }
+
+    async getFaker(){
+        try{
+            const products = {
+                title: faker.commerce.product(),
+                description: faker.commerce.productDescription(),
+                category: faker.commerce.department(),
+                price: faker.commerce.price(),
+                thumbhail: "no-image",
+                code: faker.commerce.isbn(),
+                stock: faker.number.octal(),
+                _id: faker.number.int({ min: 1000000 })
+            };
+            return products;
+        }catch(error){
+            console.error("Error", error);
             throw error;
         }
     }

@@ -87,5 +87,16 @@ export const deleteProductsController = async (req, res, next) => {
 }
 
 
+export const getFakerController = async (req, res, next) => {
+        try {
+            const product = await productService.getFakerService();
+            res.send(product);
+        } catch (error) {
+            res.status(500).send("Error get product");
+            next(error)
+        }
+}
+
+
 
 

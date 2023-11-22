@@ -14,7 +14,7 @@ export default class productsService {
             stock,
         };
 
-        const repeatCode = await productRepository.getRepository({code:code});
+        const repeatCode = await productRepository.getRepository({ code: code });
         if (repeatCode.length > 0) {
             console.log("Repeat code")
             return;
@@ -33,14 +33,14 @@ export default class productsService {
     }
 
     async getProductsByIdService(pid) {
-        try{
-        const data = await productRepository.getRepository({_id : pid})
-        return data;
-        }catch(error){
-        console.error("Error id:", error);
+        try {
+            const data = await productRepository.getRepository({ _id: pid })
+            return data;
+        } catch (error) {
+            console.error("Error id:", error);
         }
     }
-    
+
     async deleteProductsService(pid) {
         try {
             const data = await productRepository.deleteRepository({ _id: pid });
@@ -67,6 +67,19 @@ export default class productsService {
         } catch (error) {
             console.error("error in pageProducts function:", error);
             throw error;
+        }
+    }
+
+    async getFakerService() {
+        try {
+            let products = [];
+            for(let i = 0; i < 100; i++){
+                let product = await productRepository.getFaker()
+                products.push(product)
+            }
+            return products;
+        } catch (error) {
+            console.error("error in getFake function:", error);
         }
     }
 }

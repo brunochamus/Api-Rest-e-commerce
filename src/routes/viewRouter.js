@@ -30,6 +30,11 @@ router.get('/products', privateRoutes, async (req,res)=> {
 
 });
 
+router.get('/mockingproducts', publicRoutes, async (req,res)=> {
+    const products = await productService.getFakerService();
+    res.render('products', {products});
+})
+
 router.get('/cart', async (req,res)=> {
     const cart = await cartService.getAllCartsService();
     res.render('cart', {cart})

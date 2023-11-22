@@ -4,6 +4,9 @@ import GitHubStrategy from 'passport-github2'
 import bcrypt from 'bcrypt';
 import userModel from "../dao/models/user.model.js";
 import config from "./config.js";
+import CustomError from "../services/errors/customError.js";
+import EErrors from "../services/errors/enums.js";
+import { generateUserErrorInfo } from "../services/errors/info.js";
 
 //initializePassport configura todas las estrategias de configuracion que passport tendra
 const initializePassport = () => {

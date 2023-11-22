@@ -106,7 +106,7 @@ export const updateCartController = async (req, res, next) => {
     }
 }
 
-export const updateProductQuantityController = async (cid, pid, quantity) => {
+export const updateProductQuantityController = async (req, res, next) => {
     try {
         const cid = req.params.cid;
         const pid = req.params.pid;
@@ -146,4 +146,3 @@ export const emptyCartController = async (req, res, next) => {
             next(error)
         }
 }
-

@@ -118,15 +118,9 @@ export default class CartService {
     }
 
     //Vaciar carrito
-    async emptyCartService(cid) {
+    async emptyCartService(cid, pid) {
         try {
-            const cartFind = await cartRepository.getRepository({ _id: cid });
-
-            if (!cartFind) {
-                console.log("Cart not found")
-            }
-            cartFind.products = [];
-            await cartFind.save();
+            const cart = await cartRepository.deleteProductRepository(cid, pid);
         } catch (error) {
             console.log('Error when emptying cart ', error);
         }

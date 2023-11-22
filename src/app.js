@@ -12,6 +12,7 @@ import initEvents from "./socket/index.js";
 import initializePassport from "./config/passport.congif.js";
 import passport from "passport";
 import config from "./config/config.js";
+import errorHandler from "./middlewares/error/index.js";
 
 const port = config.port;
 const mongo_url = config.mongo_url;
@@ -47,6 +48,7 @@ app.use('/api', productRouter);
 app.use('/api', cartRouter);
 app.use('/', viewRouter);
 app.use('/api', userRouter);
+app.use(errorHandler);
 
 
 const httpServer = app.listen(port, () => console.log('Server is running on port 8080'));
